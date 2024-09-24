@@ -15,12 +15,9 @@ The REST API documentation can be found on [docs.find-ai.com](https://docs.find-
 ## Installation
 
 ```sh
-# install from the production repo
-pip install git+ssh://git@github.com/Find-AI/find-ai-python.git
+# install from PyPI
+pip install --pre find_ai
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre find_ai`
 
 ## Usage
 
