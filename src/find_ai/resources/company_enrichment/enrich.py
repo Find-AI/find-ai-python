@@ -12,17 +12,15 @@ from ..._utils import (
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
-    BinaryAPIResponse,
-    AsyncBinaryAPIResponse,
-    StreamedBinaryAPIResponse,
-    AsyncStreamedBinaryAPIResponse,
-    to_custom_raw_response_wrapper,
-    to_custom_streamed_response_wrapper,
-    async_to_custom_raw_response_wrapper,
-    async_to_custom_streamed_response_wrapper,
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
 from ...types.company_enrichment import enrich_create_params
+from ...types.company_enrichment.enrich_create_response import EnrichCreateResponse
+from ...types.company_enrichment.enrich_retrieve_response import EnrichRetrieveResponse
 
 __all__ = ["EnrichResource", "AsyncEnrichResource"]
 
@@ -57,7 +55,7 @@ class EnrichResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> BinaryAPIResponse:
+    ) -> EnrichCreateResponse:
         """
         Returns structured data about a company based on a domain input.
 
@@ -72,14 +70,13 @@ class EnrichResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/v1/companies/enrich",
             body=maybe_transform({"domain": domain}, enrich_create_params.EnrichCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BinaryAPIResponse,
+            cast_to=EnrichCreateResponse,
         )
 
     def retrieve(
@@ -92,7 +89,7 @@ class EnrichResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> BinaryAPIResponse:
+    ) -> EnrichRetrieveResponse:
         """
         The endpoint to poll to check the latest results when data about a company isn't
         immediately available.
@@ -108,13 +105,12 @@ class EnrichResource(SyncAPIResource):
         """
         if not token:
             raise ValueError(f"Expected a non-empty value for `token` but received {token!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._get(
             f"/v1/companies/enrich/{token}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BinaryAPIResponse,
+            cast_to=EnrichRetrieveResponse,
         )
 
 
@@ -148,7 +144,7 @@ class AsyncEnrichResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncBinaryAPIResponse:
+    ) -> EnrichCreateResponse:
         """
         Returns structured data about a company based on a domain input.
 
@@ -163,14 +159,13 @@ class AsyncEnrichResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/v1/companies/enrich",
             body=await async_maybe_transform({"domain": domain}, enrich_create_params.EnrichCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AsyncBinaryAPIResponse,
+            cast_to=EnrichCreateResponse,
         )
 
     async def retrieve(
@@ -183,7 +178,7 @@ class AsyncEnrichResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncBinaryAPIResponse:
+    ) -> EnrichRetrieveResponse:
         """
         The endpoint to poll to check the latest results when data about a company isn't
         immediately available.
@@ -199,13 +194,12 @@ class AsyncEnrichResource(AsyncAPIResource):
         """
         if not token:
             raise ValueError(f"Expected a non-empty value for `token` but received {token!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._get(
             f"/v1/companies/enrich/{token}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AsyncBinaryAPIResponse,
+            cast_to=EnrichRetrieveResponse,
         )
 
 
@@ -213,13 +207,11 @@ class EnrichResourceWithRawResponse:
     def __init__(self, enrich: EnrichResource) -> None:
         self._enrich = enrich
 
-        self.create = to_custom_raw_response_wrapper(
+        self.create = to_raw_response_wrapper(
             enrich.create,
-            BinaryAPIResponse,
         )
-        self.retrieve = to_custom_raw_response_wrapper(
+        self.retrieve = to_raw_response_wrapper(
             enrich.retrieve,
-            BinaryAPIResponse,
         )
 
 
@@ -227,13 +219,11 @@ class AsyncEnrichResourceWithRawResponse:
     def __init__(self, enrich: AsyncEnrichResource) -> None:
         self._enrich = enrich
 
-        self.create = async_to_custom_raw_response_wrapper(
+        self.create = async_to_raw_response_wrapper(
             enrich.create,
-            AsyncBinaryAPIResponse,
         )
-        self.retrieve = async_to_custom_raw_response_wrapper(
+        self.retrieve = async_to_raw_response_wrapper(
             enrich.retrieve,
-            AsyncBinaryAPIResponse,
         )
 
 
@@ -241,13 +231,11 @@ class EnrichResourceWithStreamingResponse:
     def __init__(self, enrich: EnrichResource) -> None:
         self._enrich = enrich
 
-        self.create = to_custom_streamed_response_wrapper(
+        self.create = to_streamed_response_wrapper(
             enrich.create,
-            StreamedBinaryAPIResponse,
         )
-        self.retrieve = to_custom_streamed_response_wrapper(
+        self.retrieve = to_streamed_response_wrapper(
             enrich.retrieve,
-            StreamedBinaryAPIResponse,
         )
 
 
@@ -255,11 +243,9 @@ class AsyncEnrichResourceWithStreamingResponse:
     def __init__(self, enrich: AsyncEnrichResource) -> None:
         self._enrich = enrich
 
-        self.create = async_to_custom_streamed_response_wrapper(
+        self.create = async_to_streamed_response_wrapper(
             enrich.create,
-            AsyncStreamedBinaryAPIResponse,
         )
-        self.retrieve = async_to_custom_streamed_response_wrapper(
+        self.retrieve = async_to_streamed_response_wrapper(
             enrich.retrieve,
-            AsyncStreamedBinaryAPIResponse,
         )

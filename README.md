@@ -28,7 +28,7 @@ from find_ai import FindAI
 
 client = FindAI()
 
-client.searches.retrieve(
+searches = client.searches.retrieve(
     "id",
 )
 ```
@@ -45,7 +45,7 @@ client = AsyncFindAI()
 
 
 async def main() -> None:
-    await client.searches.retrieve(
+    searches = await client.searches.retrieve(
         "id",
     )
 
