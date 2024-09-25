@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..types import search_create_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
     async_maybe_transform,
@@ -13,20 +13,14 @@ from .._utils import (
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
-    BinaryAPIResponse,
-    AsyncBinaryAPIResponse,
-    StreamedBinaryAPIResponse,
-    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
-    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
-    to_custom_streamed_response_wrapper,
-    async_to_custom_raw_response_wrapper,
-    async_to_custom_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.search_create_response import SearchCreateResponse
+from ..types.search_retrieve_response import SearchRetrieveResponse
 
 __all__ = ["SearchesResource", "AsyncSearchesResource"]
 
@@ -64,7 +58,7 @@ class SearchesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> BinaryAPIResponse:
+    ) -> SearchCreateResponse:
         """Starts a search.
 
         Args:
@@ -86,7 +80,6 @@ class SearchesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/v1/searches",
             body=maybe_transform(
@@ -101,7 +94,7 @@ class SearchesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BinaryAPIResponse,
+            cast_to=SearchCreateResponse,
         )
 
     def retrieve(
@@ -114,7 +107,7 @@ class SearchesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> SearchRetrieveResponse:
         """
         The endpoint to poll to check the latest results of a search.
 
@@ -129,13 +122,12 @@ class SearchesResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._get(
             f"/v1/searches/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=SearchRetrieveResponse,
         )
 
 
@@ -172,7 +164,7 @@ class AsyncSearchesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncBinaryAPIResponse:
+    ) -> SearchCreateResponse:
         """Starts a search.
 
         Args:
@@ -194,7 +186,6 @@ class AsyncSearchesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/v1/searches",
             body=await async_maybe_transform(
@@ -209,7 +200,7 @@ class AsyncSearchesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AsyncBinaryAPIResponse,
+            cast_to=SearchCreateResponse,
         )
 
     async def retrieve(
@@ -222,7 +213,7 @@ class AsyncSearchesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> SearchRetrieveResponse:
         """
         The endpoint to poll to check the latest results of a search.
 
@@ -237,13 +228,12 @@ class AsyncSearchesResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._get(
             f"/v1/searches/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=SearchRetrieveResponse,
         )
 
 
@@ -251,9 +241,8 @@ class SearchesResourceWithRawResponse:
     def __init__(self, searches: SearchesResource) -> None:
         self._searches = searches
 
-        self.create = to_custom_raw_response_wrapper(
+        self.create = to_raw_response_wrapper(
             searches.create,
-            BinaryAPIResponse,
         )
         self.retrieve = to_raw_response_wrapper(
             searches.retrieve,
@@ -264,9 +253,8 @@ class AsyncSearchesResourceWithRawResponse:
     def __init__(self, searches: AsyncSearchesResource) -> None:
         self._searches = searches
 
-        self.create = async_to_custom_raw_response_wrapper(
+        self.create = async_to_raw_response_wrapper(
             searches.create,
-            AsyncBinaryAPIResponse,
         )
         self.retrieve = async_to_raw_response_wrapper(
             searches.retrieve,
@@ -277,9 +265,8 @@ class SearchesResourceWithStreamingResponse:
     def __init__(self, searches: SearchesResource) -> None:
         self._searches = searches
 
-        self.create = to_custom_streamed_response_wrapper(
+        self.create = to_streamed_response_wrapper(
             searches.create,
-            StreamedBinaryAPIResponse,
         )
         self.retrieve = to_streamed_response_wrapper(
             searches.retrieve,
@@ -290,9 +277,8 @@ class AsyncSearchesResourceWithStreamingResponse:
     def __init__(self, searches: AsyncSearchesResource) -> None:
         self._searches = searches
 
-        self.create = async_to_custom_streamed_response_wrapper(
+        self.create = async_to_streamed_response_wrapper(
             searches.create,
-            AsyncStreamedBinaryAPIResponse,
         )
         self.retrieve = async_to_streamed_response_wrapper(
             searches.retrieve,
