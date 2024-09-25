@@ -76,7 +76,7 @@ class FindAI(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous find-ai client instance."""
+        """Construct a new synchronous Find AI client instance."""
         if base_url is None:
             base_url = os.environ.get("FIND_AI_BASE_URL")
         if base_url is None:
@@ -227,7 +227,7 @@ class AsyncFindAI(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async find-ai client instance."""
+        """Construct a new async Find AI client instance."""
         if base_url is None:
             base_url = os.environ.get("FIND_AI_BASE_URL")
         if base_url is None:
