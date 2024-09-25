@@ -1,11 +1,11 @@
 [project]
 name = "find_ai"
-version = "0.0.1-alpha.1"
-description = "The official Python library for the find-ai API"
+version = "0.1.0-alpha.1"
+description = "The official Python library for the Find AI API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Find AI", email = "dev-feedback@find-ai.com" },
+{ name = "Find AI", email = "help@usefind.ai" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
