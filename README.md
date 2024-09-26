@@ -24,24 +24,37 @@ pip install --pre find_ai
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from find_ai import FindAI
 
-client = FindAI()
+client = FindAI(
+    # This is the default and can be omitted
+    api_key=os.environ.get("FIND_AI_API_KEY"),
+)
 
 searches = client.searches.retrieve(
     "id",
 )
 ```
 
+While you can provide an `api_key` keyword argument,
+we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
+to add `FIND_AI_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
+
 ## Async usage
 
 Simply import `AsyncFindAI` instead of `FindAI` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from find_ai import AsyncFindAI
 
-client = AsyncFindAI()
+client = AsyncFindAI(
+    # This is the default and can be omitted
+    api_key=os.environ.get("FIND_AI_API_KEY"),
+)
 
 
 async def main() -> None:
