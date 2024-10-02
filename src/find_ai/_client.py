@@ -46,8 +46,6 @@ __all__ = [
 
 
 class FindAI(SyncAPIClient):
-    company_enrichment: resources.CompanyEnrichmentResource
-    people_enrichment: resources.PeopleEnrichmentResource
     searches: resources.SearchesResource
     with_raw_response: FindAIWithRawResponse
     with_streaming_response: FindAIWithStreamedResponse
@@ -106,8 +104,6 @@ class FindAI(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.company_enrichment = resources.CompanyEnrichmentResource(self)
-        self.people_enrichment = resources.PeopleEnrichmentResource(self)
         self.searches = resources.SearchesResource(self)
         self.with_raw_response = FindAIWithRawResponse(self)
         self.with_streaming_response = FindAIWithStreamedResponse(self)
@@ -218,8 +214,6 @@ class FindAI(SyncAPIClient):
 
 
 class AsyncFindAI(AsyncAPIClient):
-    company_enrichment: resources.AsyncCompanyEnrichmentResource
-    people_enrichment: resources.AsyncPeopleEnrichmentResource
     searches: resources.AsyncSearchesResource
     with_raw_response: AsyncFindAIWithRawResponse
     with_streaming_response: AsyncFindAIWithStreamedResponse
@@ -278,8 +272,6 @@ class AsyncFindAI(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.company_enrichment = resources.AsyncCompanyEnrichmentResource(self)
-        self.people_enrichment = resources.AsyncPeopleEnrichmentResource(self)
         self.searches = resources.AsyncSearchesResource(self)
         self.with_raw_response = AsyncFindAIWithRawResponse(self)
         self.with_streaming_response = AsyncFindAIWithStreamedResponse(self)
@@ -391,31 +383,21 @@ class AsyncFindAI(AsyncAPIClient):
 
 class FindAIWithRawResponse:
     def __init__(self, client: FindAI) -> None:
-        self.company_enrichment = resources.CompanyEnrichmentResourceWithRawResponse(client.company_enrichment)
-        self.people_enrichment = resources.PeopleEnrichmentResourceWithRawResponse(client.people_enrichment)
         self.searches = resources.SearchesResourceWithRawResponse(client.searches)
 
 
 class AsyncFindAIWithRawResponse:
     def __init__(self, client: AsyncFindAI) -> None:
-        self.company_enrichment = resources.AsyncCompanyEnrichmentResourceWithRawResponse(client.company_enrichment)
-        self.people_enrichment = resources.AsyncPeopleEnrichmentResourceWithRawResponse(client.people_enrichment)
         self.searches = resources.AsyncSearchesResourceWithRawResponse(client.searches)
 
 
 class FindAIWithStreamedResponse:
     def __init__(self, client: FindAI) -> None:
-        self.company_enrichment = resources.CompanyEnrichmentResourceWithStreamingResponse(client.company_enrichment)
-        self.people_enrichment = resources.PeopleEnrichmentResourceWithStreamingResponse(client.people_enrichment)
         self.searches = resources.SearchesResourceWithStreamingResponse(client.searches)
 
 
 class AsyncFindAIWithStreamedResponse:
     def __init__(self, client: AsyncFindAI) -> None:
-        self.company_enrichment = resources.AsyncCompanyEnrichmentResourceWithStreamingResponse(
-            client.company_enrichment
-        )
-        self.people_enrichment = resources.AsyncPeopleEnrichmentResourceWithStreamingResponse(client.people_enrichment)
         self.searches = resources.AsyncSearchesResourceWithStreamingResponse(client.searches)
 
 
