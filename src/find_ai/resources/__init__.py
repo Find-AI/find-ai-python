@@ -8,36 +8,8 @@ from .searches import (
     SearchesResourceWithStreamingResponse,
     AsyncSearchesResourceWithStreamingResponse,
 )
-from .people_enrichment import (
-    PeopleEnrichmentResource,
-    AsyncPeopleEnrichmentResource,
-    PeopleEnrichmentResourceWithRawResponse,
-    AsyncPeopleEnrichmentResourceWithRawResponse,
-    PeopleEnrichmentResourceWithStreamingResponse,
-    AsyncPeopleEnrichmentResourceWithStreamingResponse,
-)
-from .company_enrichment import (
-    CompanyEnrichmentResource,
-    AsyncCompanyEnrichmentResource,
-    CompanyEnrichmentResourceWithRawResponse,
-    AsyncCompanyEnrichmentResourceWithRawResponse,
-    CompanyEnrichmentResourceWithStreamingResponse,
-    AsyncCompanyEnrichmentResourceWithStreamingResponse,
-)
 
 __all__ = [
-    "CompanyEnrichmentResource",
-    "AsyncCompanyEnrichmentResource",
-    "CompanyEnrichmentResourceWithRawResponse",
-    "AsyncCompanyEnrichmentResourceWithRawResponse",
-    "CompanyEnrichmentResourceWithStreamingResponse",
-    "AsyncCompanyEnrichmentResourceWithStreamingResponse",
-    "PeopleEnrichmentResource",
-    "AsyncPeopleEnrichmentResource",
-    "PeopleEnrichmentResourceWithRawResponse",
-    "AsyncPeopleEnrichmentResourceWithRawResponse",
-    "PeopleEnrichmentResourceWithStreamingResponse",
-    "AsyncPeopleEnrichmentResourceWithStreamingResponse",
     "SearchesResource",
     "AsyncSearchesResource",
     "SearchesResourceWithRawResponse",
