@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.0 (2024-10-03)
+
+Full Changelog: [v0.1.0-alpha.1...v1.0.0](https://github.com/Find-AI/find-ai-python/compare/v0.1.0-alpha.1...v1.0.0)
+
+### Features
+
+* **api:** manual updates updated ([#9](https://github.com/Find-AI/find-ai-python/issues/9)) ([b0aca07](https://github.com/Find-AI/find-ai-python/commit/b0aca073da989b196bbf1a3e64b0d47d094b6b3b))
+* **api:** OpenAPI spec update via Stainless API ([#11](https://github.com/Find-AI/find-ai-python/issues/11)) ([5d384f6](https://github.com/Find-AI/find-ai-python/commit/5d384f6305f7865191592ee3f337ebfdae8842bd))
+
+
+### Chores
+
+* **internal:** codegen related update ([#12](https://github.com/Find-AI/find-ai-python/issues/12)) ([1b494da](https://github.com/Find-AI/find-ai-python/commit/1b494da80f2e1344120fbef42dc3792c0833265d))
+* **internal:** codegen related update ([#13](https://github.com/Find-AI/find-ai-python/issues/13)) ([7e7831e](https://github.com/Find-AI/find-ai-python/commit/7e7831e72783e50ec538bbd13a80be31f7188df4))
+
 ## 0.1.0-alpha.1 (2024-09-25)
 
 Full Changelog: [v0.0.1-alpha.1...v0.1.0-alpha.1](https://github.com/Find-AI/find-ai-python/compare/v0.0.1-alpha.1...v0.1.0-alpha.1)

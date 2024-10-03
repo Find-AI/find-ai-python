@@ -16,7 +16,7 @@ The REST API documentation can be found on [docs.find-ai.com](https://docs.find-
 
 ```sh
 # install from PyPI
-pip install --pre find_ai
+pip install find_ai
 ```
 
 ## Usage
