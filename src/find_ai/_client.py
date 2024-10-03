@@ -25,7 +25,7 @@ from ._utils import (
 )
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError
+from ._exceptions import FindAIError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -46,17 +46,17 @@ __all__ = [
 
 
 class FindAI(SyncAPIClient):
-    company_enrichment: resources.CompanyEnrichmentResource
-    people_enrichment: resources.PeopleEnrichmentResource
     searches: resources.SearchesResource
     with_raw_response: FindAIWithRawResponse
     with_streaming_response: FindAIWithStreamedResponse
 
     # client options
+    api_key: str
 
     def __init__(
         self,
         *,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -76,7 +76,18 @@ class FindAI(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous find-ai client instance."""
+        """Construct a new synchronous Find AI client instance.
+
+        This automatically infers the `api_key` argument from the `FIND_AI_API_KEY` environment variable if it is not provided.
+        """
+        if api_key is None:
+            api_key = os.environ.get("FIND_AI_API_KEY")
+        if api_key is None:
+            raise FindAIError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the FIND_AI_API_KEY environment variable"
+            )
+        self.api_key = api_key
+
         if base_url is None:
             base_url = os.environ.get("FIND_AI_BASE_URL")
         if base_url is None:
@@ -93,8 +104,6 @@ class FindAI(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.company_enrichment = resources.CompanyEnrichmentResource(self)
-        self.people_enrichment = resources.PeopleEnrichmentResource(self)
         self.searches = resources.SearchesResource(self)
         self.with_raw_response = FindAIWithRawResponse(self)
         self.with_streaming_response = FindAIWithStreamedResponse(self)
@@ -103,6 +112,12 @@ class FindAI(SyncAPIClient):
     @override
     def qs(self) -> Querystring:
         return Querystring(array_format="comma")
+
+    @property
+    @override
+    def auth_headers(self) -> dict[str, str]:
+        api_key = self.api_key
+        return {"Authorization": api_key}
 
     @property
     @override
@@ -116,6 +131,7 @@ class FindAI(SyncAPIClient):
     def copy(
         self,
         *,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -149,6 +165,7 @@ class FindAI(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
+            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -197,17 +214,17 @@ class FindAI(SyncAPIClient):
 
 
 class AsyncFindAI(AsyncAPIClient):
-    company_enrichment: resources.AsyncCompanyEnrichmentResource
-    people_enrichment: resources.AsyncPeopleEnrichmentResource
     searches: resources.AsyncSearchesResource
     with_raw_response: AsyncFindAIWithRawResponse
     with_streaming_response: AsyncFindAIWithStreamedResponse
 
     # client options
+    api_key: str
 
     def __init__(
         self,
         *,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -227,7 +244,18 @@ class AsyncFindAI(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async find-ai client instance."""
+        """Construct a new async Find AI client instance.
+
+        This automatically infers the `api_key` argument from the `FIND_AI_API_KEY` environment variable if it is not provided.
+        """
+        if api_key is None:
+            api_key = os.environ.get("FIND_AI_API_KEY")
+        if api_key is None:
+            raise FindAIError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the FIND_AI_API_KEY environment variable"
+            )
+        self.api_key = api_key
+
         if base_url is None:
             base_url = os.environ.get("FIND_AI_BASE_URL")
         if base_url is None:
@@ -244,8 +272,6 @@ class AsyncFindAI(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.company_enrichment = resources.AsyncCompanyEnrichmentResource(self)
-        self.people_enrichment = resources.AsyncPeopleEnrichmentResource(self)
         self.searches = resources.AsyncSearchesResource(self)
         self.with_raw_response = AsyncFindAIWithRawResponse(self)
         self.with_streaming_response = AsyncFindAIWithStreamedResponse(self)
@@ -254,6 +280,12 @@ class AsyncFindAI(AsyncAPIClient):
     @override
     def qs(self) -> Querystring:
         return Querystring(array_format="comma")
+
+    @property
+    @override
+    def auth_headers(self) -> dict[str, str]:
+        api_key = self.api_key
+        return {"Authorization": api_key}
 
     @property
     @override
@@ -267,6 +299,7 @@ class AsyncFindAI(AsyncAPIClient):
     def copy(
         self,
         *,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -300,6 +333,7 @@ class AsyncFindAI(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
+            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -349,31 +383,21 @@ class AsyncFindAI(AsyncAPIClient):
 
 class FindAIWithRawResponse:
     def __init__(self, client: FindAI) -> None:
-        self.company_enrichment = resources.CompanyEnrichmentResourceWithRawResponse(client.company_enrichment)
-        self.people_enrichment = resources.PeopleEnrichmentResourceWithRawResponse(client.people_enrichment)
         self.searches = resources.SearchesResourceWithRawResponse(client.searches)
 
 
 class AsyncFindAIWithRawResponse:
     def __init__(self, client: AsyncFindAI) -> None:
-        self.company_enrichment = resources.AsyncCompanyEnrichmentResourceWithRawResponse(client.company_enrichment)
-        self.people_enrichment = resources.AsyncPeopleEnrichmentResourceWithRawResponse(client.people_enrichment)
         self.searches = resources.AsyncSearchesResourceWithRawResponse(client.searches)
 
 
 class FindAIWithStreamedResponse:
     def __init__(self, client: FindAI) -> None:
-        self.company_enrichment = resources.CompanyEnrichmentResourceWithStreamingResponse(client.company_enrichment)
-        self.people_enrichment = resources.PeopleEnrichmentResourceWithStreamingResponse(client.people_enrichment)
         self.searches = resources.SearchesResourceWithStreamingResponse(client.searches)
 
 
 class AsyncFindAIWithStreamedResponse:
     def __init__(self, client: AsyncFindAI) -> None:
-        self.company_enrichment = resources.AsyncCompanyEnrichmentResourceWithStreamingResponse(
-            client.company_enrichment
-        )
-        self.people_enrichment = resources.AsyncPeopleEnrichmentResourceWithStreamingResponse(client.people_enrichment)
         self.searches = resources.AsyncSearchesResourceWithStreamingResponse(client.searches)
 
 
