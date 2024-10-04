@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import search_create_params
@@ -50,8 +52,8 @@ class SearchesResource(SyncAPIResource):
         *,
         max_matches: float | NotGiven = NOT_GIVEN,
         query: str | NotGiven = NOT_GIVEN,
-        result_mode: str | NotGiven = NOT_GIVEN,
-        scope: str | NotGiven = NOT_GIVEN,
+        result_mode: Literal["exact", "best"] | NotGiven = NOT_GIVEN,
+        scope: Literal["person", "company"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -70,7 +72,7 @@ class SearchesResource(SyncAPIResource):
 
           result_mode: The mode of the search. Valid values are 'exact' or 'best'.
 
-          scope: The scope of the search. Valid values are 'people' or 'companies'.
+          scope: The scope of the search. Valid values are 'person' or 'company'.
 
           extra_headers: Send extra headers
 
@@ -156,8 +158,8 @@ class AsyncSearchesResource(AsyncAPIResource):
         *,
         max_matches: float | NotGiven = NOT_GIVEN,
         query: str | NotGiven = NOT_GIVEN,
-        result_mode: str | NotGiven = NOT_GIVEN,
-        scope: str | NotGiven = NOT_GIVEN,
+        result_mode: Literal["exact", "best"] | NotGiven = NOT_GIVEN,
+        scope: Literal["person", "company"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -176,7 +178,7 @@ class AsyncSearchesResource(AsyncAPIResource):
 
           result_mode: The mode of the search. Valid values are 'exact' or 'best'.
 
-          scope: The scope of the search. Valid values are 'people' or 'companies'.
+          scope: The scope of the search. Valid values are 'person' or 'company'.
 
           extra_headers: Send extra headers
 
