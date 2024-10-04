@@ -5,18 +5,18 @@ from typing_extensions import TypeAlias
 
 from .._models import BaseModel
 
-__all__ = ["SearchRetrieveResponse", "SearchRetrieveResponseItem", "SearchRetrieveResponseItemCompany"]
+__all__ = ["SearchRetrieveResponse", "SearchRetrieveResponseItem", "SearchRetrieveResponseItemCriteriaAndReason"]
 
 
-class SearchRetrieveResponseItemCompany(BaseModel):
-    name: str
-    """Returned only for a person."""
+class SearchRetrieveResponseItemCriteriaAndReason(BaseModel):
+    criteria: Optional[str] = None
+    """Match criteria"""
 
-    slug: str
-    """Returned only for a person."""
+    match: Optional[bool] = None
+    """Whether it's a match"""
 
-    website: str
-    """Returned only for a person."""
+    reason: Optional[str] = None
+    """Reason for the match"""
 
 
 class SearchRetrieveResponseItem(BaseModel):
@@ -24,23 +24,12 @@ class SearchRetrieveResponseItem(BaseModel):
 
     name: str
 
-    photo_url: str
-
-    reason: str
-
-    short_description: str
-
-    slug: str
-
-    company: Optional[SearchRetrieveResponseItemCompany] = None
-
-    company_size: Optional[str] = None
-    """Returned only for a company."""
-
-    inferred_email: Optional[str] = None
+    company: Optional[str] = None
     """Returned only for a person."""
 
-    locations: Optional[List[str]] = None
+    criteria_and_reasons: Optional[List[SearchRetrieveResponseItemCriteriaAndReason]] = None
+
+    domain: Optional[str] = None
     """Returned only for a company."""
 
     title: Optional[str] = None
