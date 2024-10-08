@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.1 (2024-10-08)
+
+Full Changelog: [v1.2.0...v1.2.1](https://github.com/Find-AI/find-ai-python/compare/v1.2.0...v1.2.1)
+
+### Bug Fixes
+
+* **client:** avoid OverflowError with very large retry counts ([#20](https://github.com/Find-AI/find-ai-python/issues/20)) ([7864786](https://github.com/Find-AI/find-ai-python/commit/78647867531c1dacaab324e228d87048c80f93fb))
+
+
+### Chores
+
+* add repr to PageInfo class ([#22](https://github.com/Find-AI/find-ai-python/issues/22)) ([6472a2f](https://github.com/Find-AI/find-ai-python/commit/6472a2f1f9379b905bcc7f7d70eb2a3da088d09f))
+
 ## 1.2.0 (2024-10-08)
 
 Full Changelog: [v1.0.0...v1.2.0](https://github.com/Find-AI/find-ai-python/compare/v1.0.0...v1.2.0)
