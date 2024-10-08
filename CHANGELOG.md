@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.0 (2024-10-08)
+
+Full Changelog: [v1.0.0...v1.2.0](https://github.com/Find-AI/find-ai-python/compare/v1.0.0...v1.2.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#16](https://github.com/Find-AI/find-ai-python/issues/16)) ([2c12534](https://github.com/Find-AI/find-ai-python/commit/2c12534ff3c1c76caf1ea0a627a76b335c23b5e3))
+
+
+### Chores
+
+* **internal:** add support for parsing bool response content ([#18](https://github.com/Find-AI/find-ai-python/issues/18)) ([9660e93](https://github.com/Find-AI/find-ai-python/commit/9660e9335272283ad44db1838bdfc0a3afb45815))
+
 ## 1.0.0 (2024-10-03)
 
 Full Changelog: [v0.1.0-alpha.1...v1.0.0](https://github.com/Find-AI/find-ai-python/compare/v0.1.0-alpha.1...v1.0.0)

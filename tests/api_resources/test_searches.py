@@ -27,8 +27,8 @@ class TestSearches:
         search = client.searches.create(
             max_matches=0,
             query="query",
-            result_mode="result_mode",
-            scope="scope",
+            result_mode="exact",
+            scope="person",
         )
         assert_matches_type(SearchCreateResponse, search, path=["response"])
 
@@ -104,8 +104,8 @@ class TestAsyncSearches:
         search = await async_client.searches.create(
             max_matches=0,
             query="query",
-            result_mode="result_mode",
-            scope="scope",
+            result_mode="exact",
+            scope="person",
         )
         assert_matches_type(SearchCreateResponse, search, path=["response"])
 

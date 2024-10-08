@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["SearchCreateParams"]
 
@@ -14,8 +14,8 @@ class SearchCreateParams(TypedDict, total=False):
     query: str
     """Search query."""
 
-    result_mode: str
+    result_mode: Literal["exact", "best"]
     """The mode of the search. Valid values are 'exact' or 'best'."""
 
-    scope: str
-    """The scope of the search. Valid values are 'people' or 'companies'."""
+    scope: Literal["person", "company"]
+    """The scope of the search. Valid values are 'person' or 'company'."""
