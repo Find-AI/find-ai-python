@@ -2,7 +2,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/find_ai.svg)](https://pypi.org/project/find_ai/)
 
-The Find AI Python library provides convenient access to the Find AI REST API from any Python 3.7+
+The Find AI Python library provides convenient access to the Find AI REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -326,7 +326,7 @@ print(find_ai.__version__)
 
 ## Requirements
 
-Python 3.7 or higher.
+Python 3.8 or higher.
 
 ## Contributing
 
