@@ -32,6 +32,9 @@ class SearchRetrieveResponseItem(BaseModel):
     domain: Optional[str] = None
     """Returned only for a company."""
 
+    status: Optional[str] = None
+    """The status of the search result."""
+
     title: Optional[str] = None
     """Returned only for a person."""
 
