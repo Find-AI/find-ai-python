@@ -28,8 +28,7 @@ import os
 from find_ai import FindAI
 
 client = FindAI(
-    # This is the default and can be omitted
-    api_key=os.environ.get("FIND_AI_API_KEY"),
+    api_key=os.environ.get("FIND_AI_API_KEY"),  # This is the default and can be omitted
 )
 
 searches = client.searches.retrieve(
@@ -52,8 +51,7 @@ import asyncio
 from find_ai import AsyncFindAI
 
 client = AsyncFindAI(
-    # This is the default and can be omitted
-    api_key=os.environ.get("FIND_AI_API_KEY"),
+    api_key=os.environ.get("FIND_AI_API_KEY"),  # This is the default and can be omitted
 )
 
 
