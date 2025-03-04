@@ -8,7 +8,7 @@ from typing_extensions import Self, override
 
 import httpx
 
-from . import resources, _exceptions
+from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     NOT_GIVEN,
@@ -24,6 +24,7 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
+from .resources import searches
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import FindAIError, APIStatusError
 from ._base_client import (
@@ -32,21 +33,11 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
-__all__ = [
-    "Timeout",
-    "Transport",
-    "ProxiesTypes",
-    "RequestOptions",
-    "resources",
-    "FindAI",
-    "AsyncFindAI",
-    "Client",
-    "AsyncClient",
-]
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "FindAI", "AsyncFindAI", "Client", "AsyncClient"]
 
 
 class FindAI(SyncAPIClient):
-    searches: resources.SearchesResource
+    searches: searches.SearchesResource
     with_raw_response: FindAIWithRawResponse
     with_streaming_response: FindAIWithStreamedResponse
 
@@ -76,7 +67,7 @@ class FindAI(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous Find AI client instance.
+        """Construct a new synchronous FindAI client instance.
 
         This automatically infers the `api_key` argument from the `FIND_AI_API_KEY` environment variable if it is not provided.
         """
@@ -104,7 +95,7 @@ class FindAI(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.searches = resources.SearchesResource(self)
+        self.searches = searches.SearchesResource(self)
         self.with_raw_response = FindAIWithRawResponse(self)
         self.with_streaming_response = FindAIWithStreamedResponse(self)
 
@@ -214,7 +205,7 @@ class FindAI(SyncAPIClient):
 
 
 class AsyncFindAI(AsyncAPIClient):
-    searches: resources.AsyncSearchesResource
+    searches: searches.AsyncSearchesResource
     with_raw_response: AsyncFindAIWithRawResponse
     with_streaming_response: AsyncFindAIWithStreamedResponse
 
@@ -244,7 +235,7 @@ class AsyncFindAI(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async Find AI client instance.
+        """Construct a new async AsyncFindAI client instance.
 
         This automatically infers the `api_key` argument from the `FIND_AI_API_KEY` environment variable if it is not provided.
         """
@@ -272,7 +263,7 @@ class AsyncFindAI(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.searches = resources.AsyncSearchesResource(self)
+        self.searches = searches.AsyncSearchesResource(self)
         self.with_raw_response = AsyncFindAIWithRawResponse(self)
         self.with_streaming_response = AsyncFindAIWithStreamedResponse(self)
 
@@ -383,22 +374,22 @@ class AsyncFindAI(AsyncAPIClient):
 
 class FindAIWithRawResponse:
     def __init__(self, client: FindAI) -> None:
-        self.searches = resources.SearchesResourceWithRawResponse(client.searches)
+        self.searches = searches.SearchesResourceWithRawResponse(client.searches)
 
 
 class AsyncFindAIWithRawResponse:
     def __init__(self, client: AsyncFindAI) -> None:
-        self.searches = resources.AsyncSearchesResourceWithRawResponse(client.searches)
+        self.searches = searches.AsyncSearchesResourceWithRawResponse(client.searches)
 
 
 class FindAIWithStreamedResponse:
     def __init__(self, client: FindAI) -> None:
-        self.searches = resources.SearchesResourceWithStreamingResponse(client.searches)
+        self.searches = searches.SearchesResourceWithStreamingResponse(client.searches)
 
 
 class AsyncFindAIWithStreamedResponse:
     def __init__(self, client: AsyncFindAI) -> None:
-        self.searches = resources.AsyncSearchesResourceWithStreamingResponse(client.searches)
+        self.searches = searches.AsyncSearchesResourceWithStreamingResponse(client.searches)
 
 
 Client = FindAI
