@@ -1597,7 +1597,7 @@ class TestAsyncFindAI:
         import threading
 
         from find_ai._utils import asyncify
-        from find_ai._base_client import get_platform 
+        from find_ai._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
