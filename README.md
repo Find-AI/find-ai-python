@@ -1,6 +1,7 @@
 # Find AI Python API library
 
-[![PyPI version](<https://img.shields.io/pypi/v/find_ai.svg?label=pypi%20(stable)>)](https://pypi.org/project/find_ai/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/find_ai.svg?label=pypi%20(stable))](https://pypi.org/project/find_ai/)
 
 The Find AI Python library provides convenient access to the Find AI REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
