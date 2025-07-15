@@ -81,7 +81,6 @@ pip install find_ai[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from find_ai import DefaultAioHttpClient
 from find_ai import AsyncFindAI
@@ -89,7 +88,7 @@ from find_ai import AsyncFindAI
 
 async def main() -> None:
     async with AsyncFindAI(
-        api_key=os.environ.get("FIND_AI_API_KEY"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         searches = await client.searches.retrieve(
