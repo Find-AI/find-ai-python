@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import searches
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import FindAIError, APIStatusError
 from ._base_client import (
@@ -30,14 +30,14 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
+if TYPE_CHECKING:
+    from .resources import searches
+    from .resources.searches import SearchesResource, AsyncSearchesResource
+
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "FindAI", "AsyncFindAI", "Client", "AsyncClient"]
 
 
 class FindAI(SyncAPIClient):
-    searches: searches.SearchesResource
-    with_raw_response: FindAIWithRawResponse
-    with_streaming_response: FindAIWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -92,9 +92,19 @@ class FindAI(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.searches = searches.SearchesResource(self)
-        self.with_raw_response = FindAIWithRawResponse(self)
-        self.with_streaming_response = FindAIWithStreamedResponse(self)
+    @cached_property
+    def searches(self) -> SearchesResource:
+        from .resources.searches import SearchesResource
+
+        return SearchesResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> FindAIWithRawResponse:
+        return FindAIWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> FindAIWithStreamedResponse:
+        return FindAIWithStreamedResponse(self)
 
     @property
     @override
@@ -202,10 +212,6 @@ class FindAI(SyncAPIClient):
 
 
 class AsyncFindAI(AsyncAPIClient):
-    searches: searches.AsyncSearchesResource
-    with_raw_response: AsyncFindAIWithRawResponse
-    with_streaming_response: AsyncFindAIWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -260,9 +266,19 @@ class AsyncFindAI(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.searches = searches.AsyncSearchesResource(self)
-        self.with_raw_response = AsyncFindAIWithRawResponse(self)
-        self.with_streaming_response = AsyncFindAIWithStreamedResponse(self)
+    @cached_property
+    def searches(self) -> AsyncSearchesResource:
+        from .resources.searches import AsyncSearchesResource
+
+        return AsyncSearchesResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncFindAIWithRawResponse:
+        return AsyncFindAIWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncFindAIWithStreamedResponse:
+        return AsyncFindAIWithStreamedResponse(self)
 
     @property
     @override
@@ -370,23 +386,55 @@ class AsyncFindAI(AsyncAPIClient):
 
 
 class FindAIWithRawResponse:
+    _client: FindAI
+
     def __init__(self, client: FindAI) -> None:
-        self.searches = searches.SearchesResourceWithRawResponse(client.searches)
+        self._client = client
+
+    @cached_property
+    def searches(self) -> searches.SearchesResourceWithRawResponse:
+        from .resources.searches import SearchesResourceWithRawResponse
+
+        return SearchesResourceWithRawResponse(self._client.searches)
 
 
 class AsyncFindAIWithRawResponse:
+    _client: AsyncFindAI
+
     def __init__(self, client: AsyncFindAI) -> None:
-        self.searches = searches.AsyncSearchesResourceWithRawResponse(client.searches)
+        self._client = client
+
+    @cached_property
+    def searches(self) -> searches.AsyncSearchesResourceWithRawResponse:
+        from .resources.searches import AsyncSearchesResourceWithRawResponse
+
+        return AsyncSearchesResourceWithRawResponse(self._client.searches)
 
 
 class FindAIWithStreamedResponse:
+    _client: FindAI
+
     def __init__(self, client: FindAI) -> None:
-        self.searches = searches.SearchesResourceWithStreamingResponse(client.searches)
+        self._client = client
+
+    @cached_property
+    def searches(self) -> searches.SearchesResourceWithStreamingResponse:
+        from .resources.searches import SearchesResourceWithStreamingResponse
+
+        return SearchesResourceWithStreamingResponse(self._client.searches)
 
 
 class AsyncFindAIWithStreamedResponse:
+    _client: AsyncFindAI
+
     def __init__(self, client: AsyncFindAI) -> None:
-        self.searches = searches.AsyncSearchesResourceWithStreamingResponse(client.searches)
+        self._client = client
+
+    @cached_property
+    def searches(self) -> searches.AsyncSearchesResourceWithStreamingResponse:
+        from .resources.searches import AsyncSearchesResourceWithStreamingResponse
+
+        return AsyncSearchesResourceWithStreamingResponse(self._client.searches)
 
 
 Client = FindAI
